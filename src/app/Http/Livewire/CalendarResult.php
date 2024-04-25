@@ -41,8 +41,9 @@ class CalendarResult extends Component
             $this->year = $data[3];
             $this->month = $this->str2month($data[1]);
             $user_id = User::select('id')->where('name', 'test_user')->first()->id;
+            $date = strtotime("{$this->year}-{$this->month}-01");
             $total_data = Record::select('id', 'date', 'bet', 'payout', 'recovery_rate')
-                ->where('user_id', $user_id)->whereBetween('date', ['20240301', '20240309']);
+                ->where('user_id', $user_id)->whereBetween('date', [date("Ymd",$date), date("Ymt",$date)]);
             $total_bet = $total_data->sum('bet');
             $total_payout = $total_data->sum('payout');
             $recovery_rate = $total_bet == 0 ? 0 : round(($total_payout / $total_bet) * 100, 1);
