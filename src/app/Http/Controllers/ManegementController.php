@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Record;
 use App\Models\Tag;
 use App\Models\User;
@@ -15,7 +16,7 @@ class ManegementController extends Controller
     // indexの基本メソッドを定義
     private function base_index(Request $request, $sort_param)
     {
-        $user_id = User::select('id')->where('name', 'test_user')->first()->id;
+        $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
         $query_param = $request->query();
         // ソートパラム判定配列定義
         $sort_isActive = array('date' => False, 'recovery_rate' => False, 'bet' => False, 'payout' => False);
@@ -134,7 +135,7 @@ class ManegementController extends Controller
 
     public function store(PostRecordRequest $request)
     {
-        $user_id = User::select('id')->where('name', 'test_user')->first()->id;
+        $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
         Record::create([
             'user_id' => $user_id,
             'date' => $request->date,
@@ -157,7 +158,7 @@ class ManegementController extends Controller
     public function edit($id)
     {
         $record = Record::find($id);
-        $user_id = User::select('id')->where('name', 'test_user')->first()->id;
+        $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
         // ログインユーザの所持してるタグを渡す
         $tags = Tag::where('user_id', $user_id)->get();
         // checkbox用recordに付与されているtag_idの配列を渡す

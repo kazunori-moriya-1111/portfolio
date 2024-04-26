@@ -22,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('manegement')
+    ->middleware('auth')
     ->controller(ManegementController::class)
     ->name('manegement.')
     ->group(function () {
@@ -51,6 +52,7 @@ Route::prefix('manegement')
     });
 
 Route::prefix('tag')
+    ->middleware('auth')
     ->controller(TagController::class)
     ->name('tag.')
     ->group(function () {

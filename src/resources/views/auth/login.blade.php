@@ -44,4 +44,15 @@
             </x-primary-button>
         </div>
     </form>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <x-primary-button class="ml-3">
+            <input type="hidden" name="email" value="test@test.com">
+            <input type="hidden" name="password" value="password">
+            {{ __('test_user Log in')}}
+        </x-primary-button>
+    </form>
+    <button class="ml-3" type="button" onclick="location.href='./register'">
+            {{ __('CREATE_USER')}}
+    </button>
 </x-guest-layout>
