@@ -22,7 +22,6 @@ class UserSeeder extends Seeder
             'name' => 'test_user',
             'email' => 'test@test.com',
             'password' => Hash::make('password'),
-            'guest_flg' => 0,
         ]);
     }
 }
