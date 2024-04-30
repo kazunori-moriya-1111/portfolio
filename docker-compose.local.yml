@@ -1,0 +1,48 @@
+version: "3"
+services:
+  db:
+    platform: linux/x86_64 # M1チップ対応
+    image: mysql:5.7.36
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mysql_test_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: secret
+      TZ: "Asia/Tokyo"
+    # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
+    ports:
+      - 3306:3306
+    # コマンドの指定
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    # 名前付きボリュームを設定する（名前付きボリューム:コンテナ側ボリュームの場所）
+    volumes:
+      - db_data_portfolio:/var/lib/mysql
+      - db_my.cnf_portfolio:/etc/mysql/conf.d/my.cnf
+      - db_sql_portfolio:/docker-entrypoint-initdb.d
+
+  php:
+    environment:
+      - APP_ENV=local # 動作環境を指定
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      - PMA_ARBITRARY=1 # サーバ設定：サーバーをローカル以外も指定
+      - PMA_HOST=db # ホスト設定：dbを指定
+      - PMA_USER=root # 初期ユーザー設定：adminを指定
+      - PMA_PASSWORD=root # 初期PW設定：secretを指定
+    # db（サービス名）とのリンクを設定する
+    links:
+      - db
+    # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
+    ports:
+      - 8080:80
+    # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
+
+# サービスレベルで名前付きボリュームを命名する
+volumes:
+  db_data_portfolio:
+  db_my.cnf_portfolio:
+  db_sql_portfolio:
