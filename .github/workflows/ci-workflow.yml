@@ -12,5 +12,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unit Test
-        run: echo Test
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: composer install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: composer install -n --prefer-dist
+
+      - name: copy .env
+        run: cp .env.example .env
+
+      - name: generate key
+        run: php artisan key:generate
+
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: migrate
+        run: php artisan migrate
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan test --filter http
