@@ -1,0 +1,16 @@
+name: CI flow
+
+on: [push]
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Unit Test
+        run: echo Test
