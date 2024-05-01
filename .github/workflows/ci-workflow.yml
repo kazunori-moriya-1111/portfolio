@@ -7,9 +7,9 @@ jobs:
     name: ci
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: src
+    # defaults:
+    #   run:
+    #     working-directory: src
 
     steps:
       - name: Checkout
