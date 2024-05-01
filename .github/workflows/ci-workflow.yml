@@ -1,7 +1,7 @@
 name: CI flow
 
 on: [push, workflow_dispatch]
-
+# docker compose upしてから実行->これから環境かわる度にubuntu-latestに入っていないコマンドでも対応できるように
 jobs:
   ci:
     name: ci
@@ -15,41 +15,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+      - name: docker up
+        run: docker-compose -f ./docker-compose.yml -f docker-compose.local.yml up -d
 
-      - name: composer install
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: composer install -n --prefer-dist
+      # - name: Get Composer Cache Directory
+      #   id: composer-cache
+      #   run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: ${{ steps.composer-cache.outputs.dir }}
+      #     key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      #     restore-keys: ${{ runner.os }}-composer-
 
-      - name: copy .env
-        run: cp .env.example .env
+      # - name: composer install
+      #   if: steps.cache.outputs.cache-hit != 'true'
+      #   run: composer install -n --prefer-dist
 
-      - name: generate key
-        run: php artisan key:generate
+      # - name: copy .env
+      #   run: cp .env.example .env
 
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
+      # - name: generate key
+      #   run: php artisan key:generate
 
-      - name: migrate
-        run: php artisan migrate:refresh --seed
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+      # - name: Create Database
+      #   run: |
+      #     mkdir -p database
+      #     touch database/database.sqlite
 
-      - name: run node.js
-        run: npm run dev
+      # - name: migrate
+      #   run: php artisan migrate:refresh --seed
+      #   env:
+      #     DB_CONNECTION: sqlite
+      #     DB_DATABASE: database/database.sqlite
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: php artisan test --filter http
+      # - name: run node.js
+      #   run: npm run dev
+
+      # - name: Execute tests (Unit and Feature tests) via PHPUnit
+      #   env:
+      #     DB_CONNECTION: sqlite
+      #     DB_DATABASE: database/database.sqlite
+      #   run: php artisan test --filter http
