@@ -20,7 +20,7 @@ services:
       - db_my.cnf_portfolio:/etc/mysql/conf.d/my.cnf
       - db_sql_portfolio:/docker-entrypoint-initdb.d
 
-  php:
+  laravel:
     environment:
       - APP_ENV=local # 動作環境を指定
 

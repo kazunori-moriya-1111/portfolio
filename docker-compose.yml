@@ -1,6 +1,6 @@
 version: "3"
 services:
-  php:
+  laravel:
     build: ./docker/php
     # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
     volumes:
@@ -17,7 +17,7 @@ services:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     # サービスの依存関係を指定（nginxをphpに依存させる）
     depends_on:
-      - php
+      - laravel
 
   node:
     image: node:14.18-alpine
