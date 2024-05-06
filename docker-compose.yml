@@ -1,26 +1,35 @@
 version: "3"
 services:
   laravel:
-    build: ./docker/php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
     # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
     volumes:
       - ./src:/var/www
+    platform: linux/amd64
 
   nginx:
-    image: nginx:latest
+    image: portfolio-nginx:latest
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
     # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
     ports:
       - 80:80
     # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
     volumes:
       - ./src:/var/www
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     # サービスの依存関係を指定（nginxをphpに依存させる）
     depends_on:
       - laravel
+    platform: linux/amd64
 
   node:
-    image: node:14.18-alpine
+    image: portfolio-node:latest
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
     # viteのデフォルトポートを解放
     ports:
       - 5173:5173
@@ -36,3 +45,4 @@ services:
       sh -c "
       npm install &&
       npm run dev"
+    platform: linux/amd64
