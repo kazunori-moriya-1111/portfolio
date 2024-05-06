@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Artisan;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,6 +22,13 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function migrateLogin(): View
+    {
+        // ここにコマンド
+        $result = Artisan::call('migrate:refresh --seed');
+        
+        return view('auth.login');
+    }
     /**
      * Handle an incoming authentication request.
      */

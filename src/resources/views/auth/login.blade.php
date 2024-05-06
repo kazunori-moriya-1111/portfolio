@@ -55,4 +55,5 @@
     <button class="ml-3" type="button" onclick="location.href='./register'">
             {{ __('CREATE_USER')}}
     </button>
+    <a href="{{ route('login-migrate') }}">DB migrate</a>
 </x-guest-layout>
