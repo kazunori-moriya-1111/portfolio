@@ -25,4 +25,5 @@ RUN composer global require "laravel/installer"
 
 COPY ./src /var/www
 
+ENV APP_ENV production
 RUN chmod -R 777 /var/www/storage

@@ -1,16 +1,15 @@
-version: "3"
 services:
   laravel:
+    image: laravel:latest
     build:
       context: .
       dockerfile: docker/php/Dockerfile
     # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
     volumes:
       - ./src:/var/www
-    platform: linux/amd64
 
   nginx:
-    image: portfolio-nginx:latest
+    image: nginx:latest
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -23,10 +22,9 @@ services:
     # サービスの依存関係を指定（nginxをphpに依存させる）
     depends_on:
       - laravel
-    platform: linux/amd64
 
   node:
-    image: portfolio-node:latest
+    image: node:latest
     build:
       context: .
       dockerfile: docker/node/Dockerfile
@@ -40,9 +38,3 @@ services:
       - ./src:/var/www
     # コンテナ起動後のカレントディレクトリを設定
     working_dir: /var/www
-    # コンテナでalpine.js起動
-    command: >
-      sh -c "
-      npm install &&
-      npm run dev"
-    platform: linux/amd64
