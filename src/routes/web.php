@@ -74,9 +74,6 @@ Route::prefix('contents')
         Route::get('/jobcareer', function () {
             return view('contents.jobcareer');
         })->name('jobcareer');
-        Route::get('/resume', function () {
-            return view('contents.resume');
-        })->name('resume');
         Route::get('/boatrace', function () {
             return view('contents.boatrace');
         })->name('boatrace');
