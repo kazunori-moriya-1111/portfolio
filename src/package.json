@@ -20,6 +20,7 @@
         "@fullcalendar/daygrid": "^6.1.11",
         "@fullcalendar/list": "^6.1.11",
         "@fullcalendar/timegrid": "^6.1.11",
-        "chart.js": "^4.4.1"
+        "chart.js": "^4.4.1",
+        "preline": "^2.4.1"
     }
 }
