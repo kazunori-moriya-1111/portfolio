@@ -1,6 +1,6 @@
 # Dockerimage の指定
 FROM php:8.0-fpm
-COPY ./docker/php/php.ini /usr/local/etc/php/
+COPY php.ini /usr/local/etc/php/
 
 # Package & Library install
 RUN apt-get update \
@@ -22,8 +22,3 @@ WORKDIR /var/www
 
 # Laravel Package install
 RUN composer global require "laravel/installer"
-
-COPY ./src /var/www
-
-ENV APP_ENV production
-RUN chmod -R 777 /var/www/storage
