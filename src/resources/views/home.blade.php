@@ -8,7 +8,7 @@
     <title>Laravel</title>
 </head>
 
-<body>
+<body class="bg-gray-100">
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-6 mx-auto flex flex-col">
             <div class="lg:w-4/6 mx-auto">

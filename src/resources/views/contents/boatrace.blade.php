@@ -10,49 +10,76 @@
 
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-4">コンテンツ紹介</h1>
-
-        <!-- コンテンツ1 -->
-        <div class="mb-8">
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400x200" alt="コンテンツ1" class="w-full">
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">コンテンツ1</h2>
-                    <p class="text-gray-700">大学生のときにモンキーターンを読んで、戸田に住んでてたまたま戸田競艇場が近くにあったので行ってみた。
-                        社会人になってしばらく離れていただが、コロナ禍をきっかけに家でできる賭け事を探して再度ボートレース熱が上昇。</p>
-                    <a href="#" class="text-blue-500 mt-2 inline-block">続きを読む</a>
-                </div>
+        <!-- Card Blog -->
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <!-- Title -->
+            <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+                <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">ボートレースを始めたきっかけ</h2>
+                <p class="mt-1 text-gray-600 dark:text-neutral-400">大学生のときにモンキーターンを読むきっかけがあり、当時戸田市に住んでいたため戸田競艇場に行きました。実際のモーター音を聞き、迫力のあるレースを見てのめり込みました。</p>
             </div>
-        </div>
+            <!-- End Title -->
 
-        <!-- コンテンツ2 -->
-        <div class="mb-8">
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400x200" alt="コンテンツ2" class="w-full">
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">コンテンツ2</h2>
-                    <p class="text-gray-700">年末はJRの格安切符を使って普段行けないボートレース場に行きます。関東5場以外にもXXX、XXXに行きました。
-                        普段はテレボートを使用するのですが、普段行けない競艇場では、思い出（ハズレ舟券）として現地では舟券を買うようにしています。</p>
-                    <a href="#" class="text-blue-500 mt-2 inline-block">続きを読む</a>
-                </div>
-            </div>
-        </div>
+            <!-- Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card -->
+                <a class="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5 dark:border-neutral-700 dark:hover:border-transparent dark:hover:shadow-black/40 dark:focus:border-transparent dark:focus:shadow-black/40" href="#">
+                    <div class="aspect-w-16 aspect-h-11">
+                        <img class="w-full object-cover rounded-xl" src="{{ asset('img/rireki.png') }}" alt="Blog Image">
+                    </div>
+                    <div class="my-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:group-hover:text-white">
+                        コロナ禍
+                        </h3>
+                        <p class="mt-5 text-gray-600 dark:text-neutral-400">
+                        コロナ禍をキッカケにボートレース熱が上昇しました。SGやG1戦を中心に舟券を購入しています。
+                        </p>
+                    </div>
+                </a>
+                <!-- End Card -->
 
-        <!-- コンテンツ3 -->
-        <div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src="https://via.placeholder.com/400x200" alt="コンテンツ3" class="w-full">
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">コンテンツ3</h2>
-                    <p class="text-gray-700">好きな選手は池田浩二選手です。2023年グランドチャンピオンの準優勝戦で4号艇から2着になったレースで個人的に良い配当を得ることができ、
-                        それから池田浩二選手の人となりをYoutubeやインタビューで調べるようになりました。勝利に驕ることなく淡々と結果を出す姿を尊敬しています。
-                        2024年の戸田クラシックの最終日特別選抜A戦で、123-5=1234の舟券を買っていたため、池田選手が選手が2週2マークを回った時は現地で喉が潰れるくらい声を出した記憶があります。
-                        ※JLCのYoutubeチャンネルに声が少し入っていますがおそらく私です。</p>
-                    <a href="#" class="text-blue-500 mt-2 inline-block">続きを読む</a>
-                </div>
+                <!-- Card -->
+                <a class="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5 dark:border-neutral-700 dark:hover:border-transparent dark:hover:shadow-black/40 dark:focus:border-transparent dark:focus:shadow-black/40" href="#">
+                    <div class="aspect-w-16 aspect-h-11">
+                        <img class="w-full object-cover rounded-xl" src="{{ asset('img/hunaken_1.jpg') }}" alt="Blog Image">
+                    </div>
+                    <div class="my-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:group-hover:text-white">
+                        3941 池田浩二選手
+                        </h3>
+                        <p class="mt-5 text-gray-600 dark:text-neutral-400">
+                        池田浩二選手を応援しています。SG、G1でいつも優勝戦で出走しているかのような強さと、西山貴浩との交友関係等のギャップが魅力に感じています。
+                        <br>
+                        関東のボートレース場で池田浩二選手が出場している時は現地に行くようにしています。
+                        </p>
+                    </div>
+                </a>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <a class="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5 dark:border-neutral-700 dark:hover:border-transparent dark:hover:shadow-black/40 dark:focus:border-transparent dark:focus:shadow-black/40" href="#">
+                    <div class="aspect-w-16 aspect-h-11">
+                        <img class="w-full object-cover rounded-xl" src="{{ asset('img/hunaken_2.jpg') }}" alt="Blog Image">
+                    </div>
+                    <div class="my-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:group-hover:text-white">
+                        24場制覇
+                        </h3>
+                        <p class="mt-5 text-gray-600 dark:text-neutral-400">
+                        年末年始の期間は普段行くことが難しいボートレース場に遊びに行っています。
+                        <br>
+                        あと2年以内には24場全てに行ってみたいです。
+                        </p>
+                    </div>
+                </a>
+                <!-- End Card -->
             </div>
+        <!-- End Grid -->
         </div>
+        <!-- End Card Blog -->
     </div>
+    <a href="{{ url('/') }}" class="text-indigo-500 inline-flex items-center">
+        トップに戻る
+    </a>
 </body>
 </html>
 
