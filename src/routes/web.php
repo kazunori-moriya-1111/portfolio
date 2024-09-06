@@ -64,10 +64,6 @@ Route::prefix('tag')
 
 Route::post('record-tag/{id}', [RecordTagController::class, 'update'])->name('record-tag.update');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
 Route::prefix('contents')
     ->name('contents.')
     ->group(function () {
@@ -78,10 +74,6 @@ Route::prefix('contents')
             return view('contents.boatrace');
         })->name('boatrace');
     });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
