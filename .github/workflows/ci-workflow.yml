@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: docker up
-        run: docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d
+        run: docker compose up -d
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -39,11 +39,6 @@ jobs:
 
       - name: migrate
         run: docker compose exec -e DB_CONNECTION=sqlite -e DB_DATABASE=database/database.sqlite laravel php artisan migrate:refresh --seed
-
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "30s"
 
       - name: unit test
         run: docker compose exec -e DB_CONNECTION=sqlite -e DB_DATABASE=database/database.sqlite laravel php artisan test --filter http
