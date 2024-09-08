@@ -35,9 +35,9 @@ class RecordTest extends TestCase
         [
             'user_id' => $user->id,
             'date' => '2024-09-02',
-            'bet' => '32000',
-            'payout' => '5620',
-            'recovery_rate' => '91.5',
+            'bet' => 32000,
+            'payout' => 5620,
+            'recovery_rate' => 91.5,
             'memo' => 'こでなしずかに流な。',
         ]);
         $response->assertSessionHasNoErrors();
@@ -63,9 +63,9 @@ class RecordTest extends TestCase
             ->post("/manegement/{$record->id}",[
                 'id' => $record->id,
                 'date' => '2000-01-01',
-                'bet' => '33000',
-                'payout' => '6620',
-                'recovery_rate' => '81.5',
+                'bet' => 33000,
+                'payout' => 6620,
+                'recovery_rate' => 81.5,
                 'memo' => 'こでなあああに流な。',
             ]);
 
