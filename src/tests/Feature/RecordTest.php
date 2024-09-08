@@ -74,7 +74,7 @@ class RecordTest extends TestCase
         $record->refresh();
 
         $this->assertSame('2000-01-01', $record->date);
-        $this->assertSame(6620, $record->payout);
+        $this->assertEquals(6620, $record->payout);
     }
 
     public function test_record_can_delete(){
