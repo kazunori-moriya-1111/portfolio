@@ -12,6 +12,9 @@
 <body>
     <x-nav-bar />
     <article class="container mx-auto flex-col">
+        @isset($duplication_message)
+        <p class="text-red-500">{{ $duplication_message }}</p>
+        @endisset
         <h1>タグ一覧</h1>
         <hr>
         <section class="grid grid-cols-4 gap-1">
