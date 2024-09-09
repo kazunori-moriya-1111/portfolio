@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 
 class TagController extends Controller
 {
@@ -20,10 +21,17 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
-        Tag::create([
-            'user_id' => $user_id,
-            'name' => $request->name,
-        ]);
+        $duplication_message = '既に存在するタグは追加することができません';
+        $data = Tag::where('user_id', $user_id)->get();
+
+        try{
+            Tag::create([
+                'user_id' => $user_id,
+                'name' => $request->name,
+            ]);
+        } catch (QueryException $e){
+            return view('tag.index', compact('data', 'duplication_message'));
+        }
 
         return to_route('tag.index');
     }
