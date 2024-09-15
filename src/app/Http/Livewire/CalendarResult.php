@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Record;
 use App\Models\User;
@@ -40,7 +41,7 @@ class CalendarResult extends Component
             $data = explode(' ', $this->str);
             $this->year = $data[3];
             $this->month = $this->str2month($data[1]);
-            $user_id = User::select('id')->where('name', 'test_user')->first()->id;
+            $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
             $date = strtotime("{$this->year}-{$this->month}-01");
             $total_data = Record::select('id', 'date', 'bet', 'payout', 'recovery_rate')
                 ->where('user_id', $user_id)->whereBetween('date', [date("Ymd",$date), date("Ymt",$date)]);
