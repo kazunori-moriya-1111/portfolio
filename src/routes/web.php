@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('manegement')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->controller(ManegementController::class)
     ->name('manegement.')
     ->group(function () {
@@ -52,7 +52,7 @@ Route::prefix('manegement')
     });
 
 Route::prefix('tag')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->controller(TagController::class)
     ->name('tag.')
     ->group(function () {
@@ -62,7 +62,7 @@ Route::prefix('tag')
         Route::post('/{id}/destroy', 'destroy')->name('destroy');
     });
 
-Route::post('record-tag/{id}', [RecordTagController::class, 'update'])->name('record-tag.update');
+Route::middleware(['auth', 'verified'])->post('record-tag/{id}', [RecordTagController::class, 'update'])->name('record-tag.update');
 
 Route::prefix('contents')
     ->name('contents.')
@@ -75,7 +75,7 @@ Route::prefix('contents')
         })->name('boatrace');
     });
 
-Route::middleware('restrictTestUserAccess')->group(function () {
+Route::middleware(['restrictTestUserAccess', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
