@@ -1,20 +1,20 @@
 dev-build:
-	docker-compose -f ./docker-compose.yml -f docker-compose.local.yml build
+	docker compose -f ./docker-compose.yml -f docker-compose.dev.yml build
 dev-up:
-	docker-compose -f ./docker-compose.yml -f docker-compose.local.yml up -d
+	docker compose -f ./docker-compose.yml -f docker-compose.dev.yml up -d
 dev-down:
-	docker-compose -f ./docker-compose.yml -f docker-compose.local.yml down
+	docker compose -f ./docker-compose.yml -f docker-compose.dev.yml down
 dev-restart:
-	docker-compose -f ./docker-compose.yml -f docker-compose.local.yml restart
+	docker compose -f ./docker-compose.yml -f docker-compose.dev.yml restart
 
 prod-build:
-	docker-compose -f ./docker-compose.yml -f docker-compose.production.yml build
+	docker compose -f ./docker-compose.yml -f docker-compose.production.yml build
 prod-up:
-	docker-compose -f ./docker-compose.yml -f docker-compose.production.yml up -d
+	docker compose -f ./docker-compose.yml -f docker-compose.production.yml up -d
 prod-down:
-	docker-compose -f ./docker-compose.yml -f docker-compose.production.yml down
+	docker compose -f ./docker-compose.yml -f docker-compose.production.yml down
 prod-restart:
-	docker-compose -f ./docker-compose.yml -f docker-compose.production.yml restart
+	docker compose -f ./docker-compose.yml -f docker-compose.production.yml restart
 
 ecs-login:
 	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 128933403741.dkr.ecr.ap-northeast-1.amazonaws.com
