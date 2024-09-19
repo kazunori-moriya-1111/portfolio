@@ -72,6 +72,9 @@ jobs:
       - name: docker up
         run: docker compose -f ./docker-compose.yml -f docker-compose.dev.yml up -d
 
+      - name: node container npm install
+        run: docker compose exec node npm install
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
