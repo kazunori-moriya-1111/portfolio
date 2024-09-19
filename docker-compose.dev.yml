@@ -1,9 +1,15 @@
 services:
+  nginx:
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
   db:
+    platform: linux/x86_64 # M1チップ対応
     image: mysql:5.7.36
+    container_name: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mysql_test_db
+      MYSQL_DATABASE: portfolio
       MYSQL_USER: admin
       MYSQL_PASSWORD: secret
       TZ: "Asia/Tokyo"
@@ -15,19 +21,10 @@ services:
     # 名前付きボリュームを設定する（名前付きボリューム:コンテナ側ボリュームの場所）
     volumes:
       - db_data_portfolio:/var/lib/mysql
-      - db_my.cnf_portfolio:/etc/mysql/conf.d/my.cnf
-      - db_sql_portfolio:/docker-entrypoint-initdb.d
-
-  nginx:
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-
-  laravel:
-    environment:
-      - APP_ENV=local # 動作環境を指定
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
+    container_name: "phpmyadmin"
     platform: linux/x86_64
     environment:
       - PMA_ARBITRARY=1 # サーバ設定：サーバーをローカル以外も指定
@@ -44,8 +41,24 @@ services:
     volumes:
       - ./phpmyadmin/sessions:/sessions
 
+  node:
+    image: node:14.18-alpine
+    container_name: "node"
+    # viteのデフォルトポートを解放
+    ports:
+      - 5173:5173
+    # コンテナ内の標準出力とホストの出力を設定：trueを指定
+    tty: true
+    # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
+    volumes:
+      - ./src:/var/www
+    # コンテナ起動後のカレントディレクトリを設定
+    working_dir: /var/www
+    command: >
+      sh -c "
+      npm install &&
+      npm run dev"
+
 # サービスレベルで名前付きボリュームを命名する
 volumes:
   db_data_portfolio:
-  db_my.cnf_portfolio:
-  db_sql_portfolio:
