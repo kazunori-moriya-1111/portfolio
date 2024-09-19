@@ -52,7 +52,7 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: [ubuntu-22.04, arm64]
+    runs-on: ubuntu-latest
     environment: production
 
     steps:
@@ -86,10 +86,10 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           docker compose exec node npm run build
-          docker build -f docker/php/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG .
+          docker build -f docker/php/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG --platform linux/arm64  --no-cache .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG
           echo "image_laravel=$ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL" >> $GITHUB_OUTPUT
-          docker build -f docker/nginx/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG .
+          docker build -f docker/nginx/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG --platform linux/arm64  --no-cache .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG
           echo "image_nginx=$ECR_REGISTRY/$ECR_REPOSITORY_NGINX" >> $GITHUB_OUTPUT
 
