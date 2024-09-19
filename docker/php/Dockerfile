@@ -23,11 +23,11 @@ WORKDIR /var/www
 # Laravel Package install
 RUN composer global require "laravel/installer"
 
-# Project Package install
-RUN composer install
-
 # Copy src
 COPY src/ /var/www
+
+# Project Package install
+RUN composer install
 
 # Can append mode open laravel.log
 RUN chmod -R 777 /var/www/storage
