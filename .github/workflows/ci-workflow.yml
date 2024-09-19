@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: docker up
-        run: docker compose up -d
+        run: docker compose -f ./docker-compose.yml -f docker-compose.dev.yml up -d
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -22,6 +22,7 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
       - name: composer install
         if: steps.cache.outputs.cache-hit != 'true'
         run: docker compose exec laravel composer install -n --prefer-dist
