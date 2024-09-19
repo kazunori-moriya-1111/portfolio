@@ -23,6 +23,9 @@ WORKDIR /var/www
 # Laravel Package install
 RUN composer global require "laravel/installer"
 
+# Project Package install
+RUN composer install
+
 # Copy src
 COPY src/ /var/www
 
