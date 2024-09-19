@@ -28,7 +28,9 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   AWS_REGION: ap-northeast-1 # set this to your preferred AWS region, e.g. us-west-1
@@ -68,6 +70,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: docker up
+        run: docker compose -f ./docker-compose.yml -f docker-compose.dev.yml up -d
+
+      - name: node container npm install
+        run: docker compose exec node npm install
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
@@ -78,12 +86,12 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           docker compose exec node npm run build
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG .
+          docker build -f docker/php/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG
-          echo "image_laravel=$ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL:$IMAGE_TAG >> $GITHUB_OUTPUT
-          ocker build -t $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG .
+          echo "image_laravel=$ECR_REGISTRY/$ECR_REPOSITORY_LARAVEL" >> $GITHUB_OUTPUT
+          docker build -f docker/nginx/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG
-          echo "image_nginx=$ECR_REGISTRY/$ECR_REPOSITORY_NGINX:$IMAGE_TAG >> $GITHUB_OUTPUT
+          echo "image_nginx=$ECR_REGISTRY/$ECR_REPOSITORY_NGINX" >> $GITHUB_OUTPUT
 
       - name: Fill in the new laravel image ID in the Amazon ECS task definition
         id: task-def-laravel
