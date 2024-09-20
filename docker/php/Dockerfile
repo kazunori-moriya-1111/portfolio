@@ -26,8 +26,5 @@ RUN composer global require "laravel/installer"
 # Copy src
 COPY src/ /var/www
 
-# Project Package install
-RUN composer install
-
 # Can append mode open laravel.log
 RUN chmod -R 777 /var/www/storage

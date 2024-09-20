@@ -95,6 +95,9 @@ jobs:
       - name: node container npm install
         run: docker compose exec node npm install
 
+      - name: project package install
+        run: docker compose exec laravel composer install
+
       - name: generate key
         run: docker compose exec laravel php artisan key:generate
 
