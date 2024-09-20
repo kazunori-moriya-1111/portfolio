@@ -60,9 +60,23 @@ jobs:
         uses: docker/setup-qemu-action@v2
         with:
           platforms: linux/arm64
-      
+
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Generate .env file
+        run: |
+          cp src/.env.example src/.env
+          echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" >> src/.env
+          echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" >> src/.env
+          echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" >> src/.env
+          echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" >> src/.env
+          echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" >> src/.env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}" >> src/.env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}" >> src/.env
+          echo "AWS_DEFAULT_REGION=ap-northeast-1" >> src/.env
+          echo "APP_ENV=production" >> src/.env
+          echo "APP_DEBUG=false" >> src/.env
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -80,6 +94,12 @@ jobs:
 
       - name: node container npm install
         run: docker compose exec node npm install
+
+      - name: project package install
+        run: docker compose exec laravel composer install
+
+      - name: generate key
+        run: docker compose exec laravel php artisan key:generate
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
