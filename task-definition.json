@@ -48,12 +48,7 @@
       "memoryReservation": 512,
       "portMappings": [],
       "essential": true,
-      "environment": [
-        {
-          "name": "APP_ENV",
-          "value": "production"
-        }
-      ],
+      "environment": [],
       "environmentFiles": [],
       "mountPoints": [],
       "volumesFrom": [],
