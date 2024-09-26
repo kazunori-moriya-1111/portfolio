@@ -7,3 +7,7 @@ provider "aws" {
 module "iam" {
   source      = "./iam"
 }
+
+module "network" {
+  source      = "./network"
+}
