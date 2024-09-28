@@ -111,6 +111,12 @@ resource "aws_ecs_task_definition" "iac-task-portfolio" {
         image = "${var.ecr_repository_url_iac_laravel}"
         memory = 1024
         memoryReservation = 512
+        environment = [
+          {
+            name  = "APP_ENV"
+            value = "production"
+          }
+        ]
         mountPoints = []
         name = "laravel"
         portMappings = []
