@@ -4,12 +4,33 @@ provider "aws" {
   shared_credentials_files = ["~/.aws/credentials"]
 }
 
-module "iam" {
-  source = "./iam"
+variable "db_password" {
+  type        = string
+  sensitive   = true
 }
 
-module "network" {
-  source = "./network"
+variable "db_username" {
+  type        = string
+  sensitive   = true
+}
+
+variable "db_name" {
+  type        = string
+  sensitive   = true
+}
+
+module "alb" {
+  source = "./alb"
+}
+
+module "db" {
+  source = "./db"
+  iac-subnet-1-id = module.network.iac-ecs-subnet-1-id
+  iac-subnet-2-id = module.network.iac-ecs-subnet-2-id
+  iac-sg-id = module.ecs.iac-portfolio-sg
+  db_password = var.db_password
+  db_username = var.db_username
+  db_name = var.db_name
 }
 
 module "ecr" {
@@ -24,4 +45,12 @@ module "ecs" {
   iac-ecs-vpc-id = module.network.iac-ecs-vpc-id
   ecr_repository_url_iac_laravel = module.ecr.ecr_repository_url_iac_laravel
   ecr_repository_url_iac_nginx = module.ecr.ecr_repository_url_iac_nginx
+}
+
+module "iam" {
+  source = "./iam"
+}
+
+module "network" {
+  source = "./network"
 }
