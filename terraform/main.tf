@@ -21,6 +21,10 @@ variable "db_name" {
 
 module "alb" {
   source = "./alb"
+  iac-ecs-vpc-id = module.network.iac-ecs-vpc-id
+  iac-ecs-subnet-1-id = module.network.iac-ecs-subnet-1-id
+  iac-ecs-subnet-2-id = module.network.iac-ecs-subnet-2-id
+  iac-sg-id = module.ecs.iac-portfolio-sg
 }
 
 module "db" {
@@ -45,6 +49,7 @@ module "ecs" {
   iac-ecs-vpc-id = module.network.iac-ecs-vpc-id
   ecr_repository_url_iac_laravel = module.ecr.ecr_repository_url_iac_laravel
   ecr_repository_url_iac_nginx = module.ecr.ecr_repository_url_iac_nginx
+  iac-portfolio-tg-arn = module.alb.iac-portfolio-tg-arn
 }
 
 module "iam" {

@@ -22,6 +22,10 @@ variable "ecr_repository_url_iac_nginx" {
   type = string
 }
 
+variable "iac-portfolio-tg-arn" {
+  type = string
+}
+
 resource "aws_ecs_cluster" "iac-portfolio" {
   name = "iac-portfolio"
   setting  {
@@ -78,6 +82,13 @@ resource "aws_ecs_service" "iac-alb-service" {
   desired_count = 0
   launch_type = "FARGATE"
   enable_execute_command = true
+  
+  load_balancer {
+    target_group_arn = "${var.iac-portfolio-tg-arn}"
+    container_name = "nginx"
+    container_port = 80
+  }      
+  
   network_configuration {
     subnets = [
       "${var.iac-ecs-subnet-1-id}",
@@ -161,4 +172,3 @@ resource "aws_ecs_task_definition" "iac-task-portfolio" {
   execution_role_arn = "${var.iac-ecsTaskExecutionRole-arn}"
   task_role_arn = "${var.iac-ecsTaskExecutionRole-arn}"
 }
-
