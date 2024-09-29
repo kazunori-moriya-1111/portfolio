@@ -37,6 +37,13 @@ module "db" {
   db_name = var.db_name
 }
 
+module "dns" {
+  source = "./dns"
+  iac-ecs-alb-dns-name = module.alb.iac-ecs-alb-dns-name
+  iac-ecs-alb-zone-id = module.alb.iac-ecs-alb-zone-id
+
+}
+
 module "ecr" {
   source = "./ecr"
 }
