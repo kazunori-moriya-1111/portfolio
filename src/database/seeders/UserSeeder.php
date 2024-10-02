@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use DateTime;
 
 class UserSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class UserSeeder extends Seeder
             'id' => Str::uuid(),
             'name' => 'test_user',
             'email' => 'g.ff.k.96@gmail.com',
+            'email_verified_at' => new DateTime(),
             'password' => Hash::make('password'),
         ]);
     }
