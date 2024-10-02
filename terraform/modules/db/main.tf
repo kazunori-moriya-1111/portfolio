@@ -1,5 +1,10 @@
-resource "aws_db_instance" "iac-rds-ecs" {
-  identifier        = "iac-rds-ecs"
+resource "aws_db_subnet_group" "portfolio_rds_db_subnet_group" {
+  name       = "portfolio-rds-db-subnet-group"
+  subnet_ids = [var.portfolio_subnet_1a_id, var.portfolio_subnet_1c_id]
+}
+
+resource "aws_db_instance" "portfolio_rds" {
+  identifier        = "portfolio-rds"
   allocated_storage = 20
   db_name           = var.db_name
   engine            = "mysql"
@@ -8,15 +13,10 @@ resource "aws_db_instance" "iac-rds-ecs" {
   username          = var.db_username
   password          = var.db_password
   vpc_security_group_ids = [
-    "${var.iac-sg-id}"
+    var.portfolio_sg_id
   ]
   iam_database_authentication_enabled = false
   skip_final_snapshot                 = true
-  db_subnet_group_name                = aws_db_subnet_group.iac-db_subnet_group.name
-}
-
-resource "aws_db_subnet_group" "iac-db_subnet_group" {
-  name       = "iac-db_subnet_group"
-  subnet_ids = [var.iac-subnet-1-id, var.iac-subnet-2-id]
+  db_subnet_group_name                = aws_db_subnet_group.portfolio_rds_db_subnet_group.name
 }
       

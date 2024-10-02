@@ -1,15 +1,15 @@
-variable "iac-ecs-vpc-id" {
+variable "portfolio_vpc_id" {
   type = string
 }
 
-variable "iac-ecs-subnet-1-id" {
+variable "portfolio_subnet_1a_id" {
   type = string
 }
 
-variable "iac-ecs-subnet-2-id" {
+variable "portfolio_subnet_1c_id" {
   type = string
 }
 
-variable "iac-sg-id" {
+variable "portfolio_sg_id" {
   type = string
 }

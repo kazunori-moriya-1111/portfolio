@@ -1,11 +1,11 @@
-output "iac-portfolio-tg-arn" {
-  value = aws_lb_target_group.iac-portfolio-tg.arn
+output "portfolio_tg_arn" {
+  value = aws_lb_target_group.portfolio_tg.arn
 }
 
-output "iac-ecs-alb-zone-id" {
-  value = aws_lb.iac-ecs-alb.zone_id
+output "portfolio_alb_zone_id" {
+  value = aws_lb.portfolio_alb.zone_id
 }
 
-output "iac-ecs-alb-dns-name" {
-  value = aws_lb.iac-ecs-alb.dns_name
+output "portfolio_alb_dns_name" {
+  value = aws_lb.portfolio_alb.dns_name
 }

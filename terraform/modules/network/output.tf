@@ -1,11 +1,11 @@
-output "iac-ecs-subnet-1-id" {
-  value = aws_subnet.iac-ecs-subnet-1.id
+output "portfolio_subnet_1a_id" {
+  value = aws_subnet.portfolio_subnet_1a.id
 }
 
-output "iac-ecs-subnet-2-id" {
-  value = aws_subnet.iac-ecs-subnet-2.id
+output "portfolio_subnet_1c_id" {
+  value = aws_subnet.portfolio_subnet_1c.id
 }
 
-output "iac-ecs-vpc-id" {
-  value = aws_vpc.iac-ecs-vpc.id
+output "portfolio_vpc_id" {
+  value = aws_vpc.portfolio_vpc.id
 }

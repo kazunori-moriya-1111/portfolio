@@ -1,7 +1,7 @@
-variable "iac-ecs-alb-zone-id" {
+variable "portfolio_alb_dns_name" {
   type = string
 }
 
-variable "iac-ecs-alb-dns-name" {
+variable "portfolio_alb_zone_id" {
   type = string
 }

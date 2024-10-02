@@ -1,54 +1,54 @@
-resource "aws_vpc" "iac-ecs-vpc" {
+resource "aws_vpc" "portfolio_vpc" {
   cidr_block           = "172.16.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
   instance_tenancy     = "default"
   tags = {
-    Name = "iac-ecs-vpc"
+    Name = "portfolio-vpc"
   }
 }
 
-resource "aws_subnet" "iac-ecs-subnet-1" {
-  vpc_id            = aws_vpc.iac-ecs-vpc.id
+resource "aws_subnet" "portfolio_subnet_1a" {
+  vpc_id            = aws_vpc.portfolio_vpc.id
   cidr_block        = "172.16.0.0/24"
   availability_zone = "ap-northeast-1a"
   tags = {
-    Name = "iac-ecs-subnet-1"
+    Name = "portfolio-subnet-1a"
   }
 }
 
-resource "aws_subnet" "iac-ecs-subnet-2" {
-  vpc_id            = aws_vpc.iac-ecs-vpc.id
+resource "aws_subnet" "portfolio_subnet_1c" {
+  vpc_id            = aws_vpc.portfolio_vpc.id
   cidr_block        = "172.16.1.0/24"
   availability_zone = "ap-northeast-1c"
   tags = {
-    Name = "iac-ecs-subnet-2"
+    Name = "portfolio-subnet-1c"
   }
 }
 
-resource "aws_internet_gateway" "iac-ecs-gateway" {
-  vpc_id = aws_vpc.iac-ecs-vpc.id
+resource "aws_internet_gateway" "portfolio_gateway" {
+  vpc_id = aws_vpc.portfolio_vpc.id
   tags = {
-    Name = "iac-ecs-gateway"
+    Name = "portfolio_gateway"
   }
 }
 
-data "aws_route_table" "iac-route-table" {
-  vpc_id = aws_vpc.iac-ecs-vpc.id
+data "aws_route_table" "portfolio_vpc_route_table" {
+  vpc_id = aws_vpc.portfolio_vpc.id
 }
 
-resource "aws_route" "default" {
-  route_table_id         = data.aws_route_table.iac-route-table.id
+resource "aws_route" "gateway_route" {
+  route_table_id         = data.aws_route_table.portfolio_vpc_route_table.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.iac-ecs-gateway.id
+  gateway_id             = aws_internet_gateway.portfolio_gateway.id
 }
 
-resource "aws_route_table_association" "iac-ecs-subnet-1" {
-  subnet_id      = aws_subnet.iac-ecs-subnet-1.id
-  route_table_id = data.aws_route_table.iac-route-table.id
+resource "aws_route_table_association" "association_portfolio_subnet_1a" {
+  subnet_id      = aws_subnet.portfolio_subnet_1a.id
+  route_table_id = data.aws_route_table.portfolio_vpc_route_table.id
 }
 
-resource "aws_route_table_association" "iac-ecs-subnet-2" {
-  subnet_id      = aws_subnet.iac-ecs-subnet-2.id
-  route_table_id = data.aws_route_table.iac-route-table.id
+resource "aws_route_table_association" "association_portfolio_subnet_1c" {
+  subnet_id      = aws_subnet.portfolio_subnet_1c.id
+  route_table_id = data.aws_route_table.portfolio_vpc_route_table.id
 }

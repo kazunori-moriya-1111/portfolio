@@ -2,17 +2,17 @@ locals {
   host_zone = "kazunori-moriya-portfolio.com"
 }
 
-data "aws_route53_zone" "primary" {
+data "aws_route53_zone" "portfolio_host_zone" {
   name = local.host_zone
 }
 
-resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.primary.zone_id
+resource "aws_route53_record" "portfolio_alb_record" {
+  zone_id = data.aws_route53_zone.portfolio_host_zone.zone_id
   name    = local.host_zone
   type    = "A"
   alias {
-    name                   = var.iac-ecs-alb-dns-name
-    zone_id                = var.iac-ecs-alb-zone-id
+    name                   = var.portfolio_alb_dns_name
+    zone_id                = var.portfolio_alb_zone_id
     evaluate_target_health = true
   }
 }

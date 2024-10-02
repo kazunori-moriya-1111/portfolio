@@ -1,27 +1,27 @@
-variable "iac-ecsTaskExecutionRole-arn" {
+variable "ecs_task_execution_role_arn" {
   type = string
 }
 
-variable "iac-ecs-subnet-1-id" {
+variable "portfolio_subnet_1a_id" {
   type = string
 }
 
-variable "iac-ecs-subnet-2-id" {
+variable "portfolio_subnet_1c_id" {
   type = string
 }
 
-variable "iac-ecs-vpc-id" {
+variable "portfolio_vpc_id" {
   type = string
 }
 
-variable "ecr_repository_url_iac_laravel" {
+variable "ecr_repository_url_laravel" {
   type = string
 }
 
-variable "ecr_repository_url_iac_nginx" {
+variable "ecr_repository_url_nginx" {
   type = string
 }
 
-variable "iac-portfolio-tg-arn" {
+variable "portfolio_tg_arn" {
   type = string
 }
