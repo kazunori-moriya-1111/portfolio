@@ -1,37 +1,21 @@
-variable "iac-ecs-vpc-id" {
-  type = string
-}
-
-variable "iac-ecs-subnet-1-id" {
-  type = string
-}
-
-variable "iac-ecs-subnet-2-id" {
-  type = string
-}
-
-variable "iac-sg-id" {
-  type = string
-}
-
 resource "aws_lb_target_group" "iac-portfolio-tg" {
-  name     = "iac-portfolio-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.iac-ecs-vpc-id
+  name        = "iac-portfolio-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.iac-ecs-vpc-id
   target_type = "ip"
   health_check {
     enabled = true
-    path = "/"
+    path    = "/"
   }
 }
 
 resource "aws_lb" "iac-ecs-alb" {
-  name = "iac-ecs-alb"
-  internal = false
+  name               = "iac-ecs-alb"
+  internal           = false
   load_balancer_type = "application"
-  security_groups = [var.iac-sg-id]
-  subnets = [var.iac-ecs-subnet-1-id, var.iac-ecs-subnet-2-id]
+  security_groups    = [var.iac-sg-id]
+  subnets            = [var.iac-ecs-subnet-1-id, var.iac-ecs-subnet-2-id]
 }
 
 
@@ -47,9 +31,9 @@ resource "aws_lb_listener" "http" {
 }
 
 data "aws_acm_certificate" "existing" {
-  domain   = "kazunori-moriya-portfolio.com"
+  domain      = "kazunori-moriya-portfolio.com"
   most_recent = true
-  statuses = ["ISSUED"]
+  statuses    = ["ISSUED"]
 }
 
 resource "aws_lb_listener" "https" {

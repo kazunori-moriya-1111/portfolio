@@ -6,7 +6,7 @@ resource "aws_iam_role" "iac-ecsInstanceRole" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -24,7 +24,7 @@ resource "aws_iam_role" "iac-ecsRole" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -42,7 +42,7 @@ resource "aws_iam_role" "iac-ecsAutoScalingRole" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -60,7 +60,7 @@ resource "aws_iam_role" "iac-ecsTaskExecutionRole" {
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Sid = ""
+        Sid    = ""
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
         }
@@ -72,12 +72,12 @@ resource "aws_iam_role" "iac-ecsTaskExecutionRole" {
 
 
 resource "aws_iam_role_policy" "iac-ecsFargateExecPolicy" {
-  role = aws_iam_role.iac-ecsTaskExecutionRole.name
-  name = "iac-ecsFargateExecPolicy"
+  role   = aws_iam_role.iac-ecsTaskExecutionRole.name
+  name   = "iac-ecsFargateExecPolicy"
   policy = data.aws_iam_policy_document.iac-ecsFargateExecPolicy.json
 }
 
-data "aws_iam_policy_document" "iac-ecsFargateExecPolicy"{
+data "aws_iam_policy_document" "iac-ecsFargateExecPolicy" {
   statement {
     effect = "Allow"
     actions = [
@@ -91,6 +91,6 @@ data "aws_iam_policy_document" "iac-ecsFargateExecPolicy"{
 }
 
 resource "aws_iam_role_policies_exclusive" "name" {
-  role_name = aws_iam_role.iac-ecsTaskExecutionRole.name
+  role_name    = aws_iam_role.iac-ecsTaskExecutionRole.name
   policy_names = [aws_iam_role_policy.iac-ecsFargateExecPolicy.name]
 }
