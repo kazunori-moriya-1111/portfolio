@@ -36,8 +36,8 @@ env:
   AWS_REGION: ap-northeast-1 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY_LARAVEL: laravel # set this to your Amazon ECR repository name
   ECR_REPOSITORY_NGINX: nginx # set this to your Amazon ECR repository name
-  ECS_SERVICE: alb-service # set this to your Amazon ECS service name
-  ECS_CLUSTER: portfolio # set this to your Amazon ECS cluster name
+  ECS_SERVICE: portfolio-service # set this to your Amazon ECS service name
+  ECS_CLUSTER: portfolio-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
     task-definition.json # set this to the path to your Amazon ECS task definition
     # file, e.g. .aws/task-definition.json
@@ -66,23 +66,23 @@ jobs:
 
       - name: Generate .env file
         run: |
-          cp src/.env.example src/.env
-          echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" >> src/.env
-          echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" >> src/.env
-          echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" >> src/.env
-          echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" >> src/.env
-          echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" >> src/.env
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}" >> src/.env
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}" >> src/.env
-          echo "AWS_DEFAULT_REGION=ap-northeast-1" >> src/.env
-          echo "APP_ENV=production" >> src/.env
-          echo "APP_DEBUG=false" >> src/.env
+          cp src/.env.example src/.env.production
+          echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" >> src/.env.production
+          echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" >> src/.env.production
+          echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" >> src/.env.production
+          echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" >> src/.env.production
+          echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" >> src/.env.production
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}" >> src/.env.production
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}" >> src/.env.production
+          echo "AWS_DEFAULT_REGION=ap-northeast-1" >> src/.env.production
+          echo "APP_ENV=production" >> src/.env.production
+          echo "APP_DEBUG=false" >> src/.env.production
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ROOT_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR

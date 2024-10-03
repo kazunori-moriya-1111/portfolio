@@ -1,5 +1,5 @@
 {
-  "family": "portfolio",
+  "family": "portfolio_task",
   "runtimePlatform": {
     "cpuArchitecture": "ARM64",
     "operatingSystemFamily": "LINUX"
@@ -16,7 +16,6 @@
       "memoryReservation": 512,
       "portMappings": [
         {
-          "name": "80",
           "containerPort": 80,
           "hostPort": 80,
           "protocol": "tcp",
@@ -25,14 +24,12 @@
       ],
       "essential": true,
       "environment": [],
-      "environmentFiles": [],
       "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/portfolio",
-          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/portfolio_log",
           "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
         },
@@ -48,14 +45,17 @@
       "memoryReservation": 512,
       "portMappings": [],
       "essential": true,
-      "environment": [],
-      "environmentFiles": [],
+      "environment": [
+        {
+          "name": "APP_ENV",
+          "value": "production"
+        }
+      ],
       "mountPoints": [],
       "volumesFrom": [],
       "systemControls": []
     }
   ],
-
   "volumes": [],
   "requiresAttributes": [
     {
