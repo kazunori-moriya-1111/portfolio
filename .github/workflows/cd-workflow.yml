@@ -99,7 +99,7 @@ jobs:
         run: docker compose exec laravel composer install
 
       - name: generate key
-        run: docker compose exec laravel php artisan key:generate
+        run: docker compose exec laravel php artisan key:generate --env=production
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
