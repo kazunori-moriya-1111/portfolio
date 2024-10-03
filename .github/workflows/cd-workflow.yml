@@ -141,3 +141,18 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
+      - name: Update ECS service if task count is 0
+        run: |
+          TASK_COUNT=$(aws ecs describe-services --cluster ${{ env.ECS_CLUSTER }} --services ${{ env.ECS_SERVICE }} --query "services[0].desiredCount" --output text)
+
+          if [ "$TASK_COUNT" -eq 0 ]; then
+            echo "Updating task count to 1..."
+            aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --desired-count 1
+          else
+            echo "Task count is already $TASK_COUNT."
+          fi
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --force-new-deployment
