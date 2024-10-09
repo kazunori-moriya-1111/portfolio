@@ -12,7 +12,7 @@ class CalenderJson
     {
         $user_id = User::select('id')->where('email', Auth::user()->email)->first()->id;
         $record = Record::select('date')
-            ->selectRaw('SUM(bet) - SUM(payout) AS day_result')
+            ->selectRaw('SUM(payout) - SUM(bet) AS day_result')
             ->where('user_id', $user_id)
             ->groupBy('date')
             ->get();
