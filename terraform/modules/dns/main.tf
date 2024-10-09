@@ -11,7 +11,7 @@ resource "aws_route53_record" "portfolio_alb_record" {
   name    = local.host_zone
   type    = "A"
   alias {
-    name                   = var.portfolio_alb_dns_name
+    name                   = "dualstack.${var.portfolio_alb_dns_name}"
     zone_id                = var.portfolio_alb_zone_id
     evaluate_target_health = true
   }
