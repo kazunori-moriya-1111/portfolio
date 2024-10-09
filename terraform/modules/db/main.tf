@@ -18,5 +18,7 @@ resource "aws_db_instance" "portfolio_rds" {
   iam_database_authentication_enabled = false
   skip_final_snapshot                 = true
   db_subnet_group_name                = aws_db_subnet_group.portfolio_rds_db_subnet_group.name
+  tags = {
+    "autostop" : "yes"
+  }
 }
-      
