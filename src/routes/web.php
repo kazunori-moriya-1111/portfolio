@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManegementController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\RecordTagController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('download/{filename}', [FileController::class, 'download']);
 
 Route::prefix('manegement')
     ->middleware(['auth', 'verified'])
@@ -63,17 +66,6 @@ Route::prefix('tag')
     });
 
 Route::middleware(['auth', 'verified'])->post('record-tag/{id}', [RecordTagController::class, 'update'])->name('record-tag.update');
-
-Route::prefix('contents')
-    ->name('contents.')
-    ->group(function () {
-        Route::get('/jobcareer', function () {
-            return view('contents.jobcareer');
-        })->name('jobcareer');
-        Route::get('/boatrace', function () {
-            return view('contents.boatrace');
-        })->name('boatrace');
-    });
 
 Route::middleware(['restrictTestUserAccess', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
