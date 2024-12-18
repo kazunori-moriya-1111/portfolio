@@ -13,11 +13,11 @@
     <nav class="fixed top-0 left-0 w-full bg-gray-800 text-white shadow-md z-10">
         <div class="max-w-7xl mx-auto py-4 flex justify-between items-center">
             <div class="hidden md:flex space-x-4">
-                <a href="#" class="text-white hover:text-blue-200">ホーム</a>
-                <a href="#" class="text-white hover:text-blue-200">ポートフォリオ</a>
-                <a href="#" class="text-white hover:text-blue-200">ボートレースエピソード</a>
-                <a href="#" class="text-white hover:text-blue-200">スキルセット</a>
-                <a href="#" class="text-white hover:text-blue-200">プロフィール</a>
+                <a href="#home" class="text-white hover:text-blue-200">ホーム</a>
+                <a href="#portfolio" class="text-white hover:text-blue-200">ポートフォリオ</a>
+                <a href="#episode" class="text-white hover:text-blue-200">ボートレースエピソード</a>
+                <a href="#skill" class="text-white hover:text-blue-200">スキルセット</a>
+                <a href="#profile" class="text-white hover:text-blue-200">プロフィール</a>
             </div>
             <div class="md:hidden">
                 <button id="menu-button" class="text-white focus:outline-none">
@@ -28,16 +28,16 @@
             </div>
         </div>
         <div id="menu" class="md:hidden">
-            <a href="#" class="block text-white hover:bg-blue-700 px-4 py-2">ホーム</a>
-            <a href="#" class="block text-white hover:bg-blue-700 px-4 py-2">ポートフォリオ</a>
-            <a href="#" class="block text-white hover:bg-blue-700 px-4 py-2">ボートレースエピソード</a>
-            <a href="#" class="block text-white hover:bg-blue-700 px-4 py-2">スキルセット</a>
-            <a href="#" class="block text-white hover:bg-blue-700 px-4 py-2">プロフィール</a>
+            <a href="#home" class="block text-white hover:bg-blue-700 px-4 py-2">ホーム</a>
+            <a href="#portfolio" class="block text-white hover:bg-blue-700 px-4 py-2">ポートフォリオ</a>
+            <a href="#episode" class="block text-white hover:bg-blue-700 px-4 py-2">ボートレースエピソード</a>
+            <a href="#skill" class="block text-white hover:bg-blue-700 px-4 py-2">スキルセット</a>
+            <a href="#profile" class="block text-white hover:bg-blue-700 px-4 py-2">プロフィール</a>
         </div>
     </nav>
     <!-- ホーム -->
-    <section class="bg-gray-200 my-4 px-5 py-6 mx-auto">
-        <div class="container w-11/12 px-5 py-6 mx-auto flex flex-col">
+    <section id="home" class="bg-gray-200 my-4 px-5 py-6 mx-auto">
+        <div class="container w-11/12 px-5 py-10 mx-auto flex flex-col">
             <h2 class="text-2xl font-bold text-center md:text-4xl">このサイトについて</h2>
             <div class="lg:w-4/6 mx-auto">
                 <div class="flex flex-col sm:flex-row mt-10">
@@ -74,8 +74,8 @@
         </div>
     </section>
     
-    <!-- アプリ -->
-    <section class="bg-gray-200 my-4 px-5 py-6 mx-auto">
+    <!-- ポートフォリオ -->
+    <section id="portfolio" class="bg-gray-200 my-4 px-5 py-6 mx-auto">
         <div class="max-w-7xl w-11/12 px-4 py-10 mx-auto">
             <h2 class="text-2xl font-bold text-center md:text-4xl">ポートフォリオ</h2>
             <p class="mt-1 text-gray-600">
@@ -88,8 +88,8 @@
         </div>
     </section>
 
-    <!-- ボートレース -->
-    <section class="bg-gray-200 my-4 px-5 py-6 mx-auto">
+    <!-- ボートレースエピソード -->
+    <section id="episode" class="bg-gray-200 my-4 px-5 py-6 mx-auto">
         <!-- Card Blog -->
         <div class="max-w-7xl w-11/12 px-4 py-10 mx-auto">
             <div class="max-w-2xl mx-auto mb-10 lg:mb-14">
@@ -172,8 +172,8 @@
     </section>
     
     <!-- スキルセット -->
-    <section class="bg-gray-200 my-4 px-5 py-6 mx-auto">
-        <div class="max-w-7xl w-11/12 px-4 py-1 mx-auto">
+    <section id="skill" class="bg-gray-200 my-4 px-5 py-6 mx-auto">
+        <div class="max-w-7xl w-11/12 px-4 py-10 mx-auto">
             <h2 class="text-2xl font-bold text-center md:text-4xl">スキルセット</h2>
             <ul class="flex flex-col items-center">
                 <li class="mb-4">5 : レクチャーや導入推進が可能</li>
@@ -200,8 +200,8 @@
     </section>
 
     <!-- プロフィール -->
-    <section class="bg-gray-200 px-5 py-6 mx-auto">
-        <div class="max-w-7xl w-11/12 px-4 py-1 mx-auto">
+    <section id="profile" class="bg-gray-200 my-4 px-5 py-6 mx-auto">
+        <div class="max-w-7xl w-11/12 px-4 py-10 mx-auto">
             <h2 class="text-2xl font-bold text-center md:text-4xl">プロフィール</h2>
             <div class="mx-auto py-8">
                 <!-- Timeline Item (高校時代) -->
