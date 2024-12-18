@@ -7,18 +7,17 @@ const aws = document.getElementById("aws_skill").getContext("2d");
 
 const front_data = {
     labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
+        "HTML/CSS",
+        "JavaScript/TypeScript",
+        "React.js",
+        "Vue.js",
+        "UI/UX設計",
+        "WEBデザイン",
     ],
     datasets: [
         {
             label: "front end",
-            data: [1, 2, 4, 5, 1, 1, 2],
+            data: [3, 3, 1, 3, 1, 1],
             fill: true,
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgb(255, 99, 132)",
@@ -32,18 +31,17 @@ const front_data = {
 
 const backend_data = {
     labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
+        "Python(Django)",
+        "PHP(Laravel)",
+        "TypeScript(Next.js/Nest.js/GraphQL)",
+        "Go",
+        "Java(Spring Boot)",
+        "C++",
     ],
     datasets: [
         {
             label: "back end",
-            data: [1, 2, 4, 5, 1, 1, 2],
+            data: [5, 2, 1, 3, 3, 3],
             fill: true,
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgb(75, 192, 192)",
@@ -57,18 +55,17 @@ const backend_data = {
 
 const dev_data = {
     labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
+        "DB（MySQL, PostgreSQL）",
+        "Docker",
+        "CI/CD(GitHub Actions)",
+        "Terraform",
+        "VMware",
+        "WindowsServer/RedHatEnterpriseLinux",
     ],
     datasets: [
         {
             label: "dev ops",
-            data: [1, 2, 4, 5, 1, 1, 2],
+            data: [4, 4, 2, 2, 3, 3],
             fill: true,
             backgroundColor: "rgba(255, 205, 86, 0.2)",
             borderColor: "rgb(255, 205, 86)",
@@ -82,18 +79,17 @@ const dev_data = {
 
 const aws_data = {
     labels: [
-        "Eating",
-        "Drinking",
-        "Sleeping",
-        "Designing",
-        "Coding",
-        "Cycling",
-        "Running",
+        "RDS/Redshift",
+        "ECR/ECS/Fargate",
+        "S3",
+        "EC2",
+        "Lambda/Glue",
+        "VPC/ELB",
     ],
     datasets: [
         {
             label: "aws",
-            data: [1, 2, 4, 5, 1, 1, 2],
+            data: [4, 2, 3, 3, 4, 4],
             fill: true,
             backgroundColor: "rgba(54, 162, 235, 0.2)",
             borderColor: "rgb(54, 162, 235)",
@@ -105,82 +101,29 @@ const aws_data = {
     ],
 };
 
-new Chart(front, {
-    type: "radar",
-    data: front_data,
-    options: {
-        elements: {
-            line: {
-                borderWidth: 3,
-            },
-        },
-        scales: {
-            r: {
-                min: 0,
-                ticks: {
-                    stepSize: 1,
-                },
-            },
-        },
-    },
-});
+// radarの描写
+const chart_id = [front, backend, dev, aws];
+const chart_data = [front_data, backend_data, dev_data, aws_data];
 
-new Chart(backend, {
-    type: "radar",
-    data: backend_data,
-    options: {
-        elements: {
-            line: {
-                borderWidth: 3,
+for (let i = 0; i < chart_data.length; i++) {
+    new Chart(chart_id[i], {
+        type: "radar",
+        data: chart_data[i],
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3,
+                },
             },
-        },
-        scales: {
-            r: {
-                min: 0,
-                ticks: {
-                    stepSize: 1,
+            scales: {
+                r: {
+                    min: 0,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                    },
                 },
             },
         },
-    },
-});
-
-new Chart(dev, {
-    type: "radar",
-    data: dev_data,
-    options: {
-        elements: {
-            line: {
-                borderWidth: 3,
-            },
-        },
-        scales: {
-            r: {
-                min: 0,
-                ticks: {
-                    stepSize: 1,
-                },
-            },
-        },
-    },
-});
-
-new Chart(aws, {
-    type: "radar",
-    data: aws_data,
-    options: {
-        elements: {
-            line: {
-                borderWidth: 3,
-            },
-        },
-        scales: {
-            r: {
-                min: 0,
-                ticks: {
-                    stepSize: 1,
-                },
-            },
-        },
-    },
-});
+    });
+}
