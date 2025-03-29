@@ -39,12 +39,26 @@ build-nginx:
 
 # ECS サービス作成時に ECS Exec フラグを有効化
 enable-ecs-exec:
-	aws ecs update-service --region ap-northeast-1 --cluster portfolio --service alb-service --enable-execute-command
+	aws ecs update-service --region ap-northeast-1 --cluster portfolio-cluster --service portfolio-service --enable-execute-command
 
 # AWS CLI の ecs execute-command を実行
 ecs-exec:
-	aws ecs execute-command --region ap-northeast-1 --cluster portfolio --task ${TASK} --container ${CONTAINER} --interactive --command "/bin/bash"
+	aws ecs execute-command --region ap-northeast-1 --cluster portfolio-cluster --task ${TASK} --container ${CONTAINER} --interactive --command "/bin/bash"
 
 # clusterで実行中のタスク詳細
 ecs-tasks:
 	aws ecs describe-tasks --cluster portfolio --tasks ${TASK}
+
+# ecsサービスの数を変更
+ecs-task-count:
+	aws ecs update-service --cluster portfolio-cluster --service portfolio-service --desired-count ${COUNT}
+
+# ecsサービスの強制デプロイ
+ecs-deploy:
+	aws ecs update-service --cluster portfolio-cluster --service portfolio-service --force-new-deployment
+# リソース確認
+# terraform state list
+# terraform state show <awsリソース名>
+
+# 実態に合わせてstateを更新
+# terraform refresh
